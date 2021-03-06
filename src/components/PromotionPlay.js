@@ -21,7 +21,7 @@ const PromotionPlay = ({ icon, onPress, text }) => (
 
 PromotionPlay.defaultProps = {
   icon: <SvgPlay />,
-  text: 'Play'
+  text: 'Buy'
 };
 
 PromotionPlay.propTypes = {

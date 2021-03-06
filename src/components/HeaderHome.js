@@ -1,3 +1,7 @@
+/**
+ * This is  for the top navigation
+ */
+
 import * as React from 'react';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
@@ -60,17 +64,17 @@ class HeaderHome extends React.Component {
             <React.Fragment>
               <TouchText
                 onPress={() => navigation.navigate('HomeTvShows')}
-                text="TV Shows"
-                textStyle={styles.text}
-              />
-              <TouchText
-                onPress={() => navigation.navigate('HomeMovies')}
                 text="Movies"
                 textStyle={styles.text}
               />
               <TouchText
+                onPress={() => navigation.navigate('HomeMovies')}
+                text="Actors\Actress"
+                textStyle={styles.text}
+              />
+              <TouchText
                 onPress={() => navigation.navigate('HomeMyList')}
-                text="My List"
+                text="Filmakers"
                 textStyle={styles.text}
               />
             </React.Fragment>

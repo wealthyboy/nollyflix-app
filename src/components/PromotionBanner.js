@@ -1,3 +1,7 @@
+/**
+ * This is for the info link
+ */
+
 import * as React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { gStyle, images } from '../constants';
@@ -46,7 +50,7 @@ class PromotionBanner extends React.Component {
             <TouchTextIcon
               icon={icon}
               onPress={this.myListPress}
-              text="My List"
+              text="My Listings"
             />
             <PromotionPlay onPress={() => null} />
             <TouchTextIcon
