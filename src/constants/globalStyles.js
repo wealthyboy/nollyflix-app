@@ -3,7 +3,7 @@ import fonts from './fonts';
 
 export default {
   container: {
-    backgroundColor: colors.bgGrey,
+    backgroundColor: colors.black,
     flex: 1
   },
   centerItems: {
@@ -81,6 +81,23 @@ export default {
   mV32: {
     marginVertical: 32
   },
+
+  mH5: {
+    marginHorizontal: 5
+  },
+  mH10: {
+    marginHorizontal: 10
+  },
+  mH20: {
+    marginHorizontal: 20
+  },
+  mH24: {
+    marginHorizontal: 24
+  },
+  mH32: {
+    marginHorizontal: 32
+  },
+  
   p4: {
     padding: 4
   },

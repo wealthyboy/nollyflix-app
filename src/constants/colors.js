@@ -13,6 +13,8 @@ export default {
   castGrey: '#303030',
   textGrey: '#b3b3b3',
 
+  main: '#E50914',
+
   // home
   heading: '#e6e6e6',
   infoGrey: '#a4a4a4',

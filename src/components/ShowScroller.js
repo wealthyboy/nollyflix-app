@@ -4,8 +4,9 @@ import { FlatList, Image, StyleSheet, View } from 'react-native';
 import { colors, images } from '../constants';
 
 import mockData from '../mockdata/data';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-const ShowScroller = ({ dataset, type }) => {
+const ShowScroller = ({ dataset, type ,onPress}) => {
   const dataArray = Object.values(mockData[dataset]);
 
   return (
@@ -19,7 +20,11 @@ const ShowScroller = ({ dataset, type }) => {
 
         if (item.image) {
           renderItem = (
-            <Image source={images[item.image]} style={styles[`${type}Image`]} />
+            <TouchableWithoutFeedback onPress={onPress}>
+                <Image 
+                source={images[item.image]} style={styles[`${type}Image`]} />
+            </TouchableWithoutFeedback>
+            
           );
         }
 

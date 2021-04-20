@@ -6,16 +6,16 @@ import { colors, fonts } from '../constants';
 // icons
 import SvgPlay from './icons/Svg.Play';
 
-const PromotionPlay = ({ icon, onPress, text }) => (
+const PromotionPlay = ({ iconColor, icon, onPress, text, textColor= 'white', color = 'brandPrimary', p, pV}) => (
   <TouchableOpacity
-    activeOpacity={0.7}
+    activeOpacity={0.3}
     onPress={onPress}
-    style={styles.container}
+    style={[styles.container,  { backgroundColor: colors[color], paddingVertical: pV}]}
   >
-    <View style={styles.icon}>
-      {React.cloneElement(icon, { fill: colors.black })}
+    <View style={[styles.icon,{ color: colors[textColor],paddingTop: p }]}>
+      {React.cloneElement(icon, { fill: iconColor })}
     </View>
-    <Text style={styles.text}>{text}</Text>
+    <Text style={[styles.text, { color: colors[textColor] }]}>{text}</Text>
   </TouchableOpacity>
 );
 
@@ -29,8 +29,6 @@ PromotionPlay.propTypes = {
   onPress: PropTypes.func.isRequired,
 
   // optional
-  icon: PropTypes.element,
-  text: PropTypes.string
 };
 
 const styles = StyleSheet.create({
@@ -41,7 +39,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingVertical: 8
+    marginVertical: 2
+
   },
   text: {
     color: colors.black,
@@ -49,7 +48,9 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   icon: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: "#fff",
+    marginTop: 3,
   }
 });
 

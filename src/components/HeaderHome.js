@@ -57,24 +57,20 @@ class HeaderHome extends React.Component {
           activeOpacity={0.7}
           onPress={() => navigation.navigate('HomeMain')}
         >
-          <Image source={images.netflixTransparent} style={styles.logo} />
+          <Image  source={require("../assets/icon.png")}  style={styles.logo} />
         </TouchableOpacity>
         <View style={styles.containerMenu}>
           {all && (
             <React.Fragment>
+              
               <TouchText
-                onPress={() => navigation.navigate('HomeTvShows')}
-                text="Movies"
-                textStyle={styles.text}
-              />
-              <TouchText
-                onPress={() => navigation.navigate('HomeMovies')}
+                onPress={() => navigation.navigate('ActorsAndActress')}
                 text="Actors\Actress"
                 textStyle={styles.text}
               />
               <TouchText
-                onPress={() => navigation.navigate('HomeMyList')}
-                text="Filmakers"
+                onPress={() => navigation.navigate('FilmMakers')}
+                text="Film Makers"
                 textStyle={styles.text}
               />
             </React.Fragment>

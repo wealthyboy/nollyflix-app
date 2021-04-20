@@ -6,9 +6,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  
   View
 } from 'react-native';
 import { colors, device, fonts } from '../constants';
+import searchApi from '../api/search';
+
 
 class HeaderSearch extends React.Component {
   constructor() {
@@ -18,12 +21,17 @@ class HeaderSearch extends React.Component {
       focus: false,
       cancelOpacity: new Animated.Value(0),
       inputWidth: new Animated.Value(100),
-      text: ''
+      text: '',
+      videos: [],
+      error: '',
+      loading: false,
+      textIsChanging: true
     };
 
     this.onBlur = this.onBlur.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onChangeText = this.onChangeText.bind(this)
   }
 
   onBlur() {
@@ -44,12 +52,30 @@ class HeaderSearch extends React.Component {
         useNativeDriver: false
       }).start();
     }
+
   }
 
   onCancel() {
     Keyboard.dismiss();
 
     this.setState({ text: '' }, () => this.onBlur());
+  }
+
+
+
+   onChangeText = async (text) => {
+    this.setState({ text: text})
+    this.setState({ loading: true })
+
+
+    const res  = await searchApi.search(text)
+    if (!res.ok){ this.setState({ error: "We could not get video listings"}); return; }
+    this.setState({ videos: res.data.data })
+    this.setState({ loading: false })
+    this.setState({ textIsChanging: false })
+
+
+
   }
 
   onFocus() {
@@ -67,6 +93,8 @@ class HeaderSearch extends React.Component {
       toValue: 1,
       useNativeDriver: false
     }).start();
+
+
   }
 
   render() {
@@ -88,7 +116,7 @@ class HeaderSearch extends React.Component {
             autoFocus
             keyboardAppearance="dark"
             onBlur={this.onBlur}
-            onChangeText={(input) => this.setState({ text: input })}
+            onChangeText={this.onChangeText}
             onFocus={this.onFocus}
             placeholder="Search"
             placeholderTextColor={colors.searchIcon}
@@ -104,6 +132,46 @@ class HeaderSearch extends React.Component {
             <Text style={styles.cancel}>Cancel</Text>
           </TouchableOpacity>
         </Animated.View>
+
+        {this.state.videos.length  === 0  && this.textIsChanging  === false && (
+            <View>
+              <View style={styles.containerIcon}>
+                <SvgPlay fill={colors.bgGrey} size={80} />
+              </View>
+      
+              <Text style={styles.description}>
+                You have no found
+              </Text>
+            </View>
+        )}
+        
+        {this.state.videos.length   && this.loading  === false && (
+          <View style={styles.imageContainer}>
+              {this.state.videos.map(video => (
+                  <TouchableWithoutFeedback 
+                    key={video.id} 
+                        onPress={() => {
+                          if (video.is_rent_expired) {
+                            navigation.navigate('VideoDetails',video.video)
+                          } else {
+                            navigation.navigate('ModalVideo',{"video": video.video,"videoToShow": "link"})
+                          }
+                        }} 
+                    >
+                    <View style={styles.imgContainer}>
+                      <Image 
+                          style={styles.rectangle} 
+                          uri={video.video.tn_poster} 
+                          preview={{ uri: video.video.tn_poster}}
+                          tint="light"
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
+              ))} 
+          </View>
+       )}
+
+
       </View>
     );
   }

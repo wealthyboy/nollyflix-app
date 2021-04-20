@@ -1,15 +1,30 @@
-import * as React from 'react';
+import  React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts } from '../constants';
 
 // icons
 import SvgArrowRight from './icons/Svg.ArrowRight';
 
 const TouchLineItem = (props) => {
-  const { icon, iconSize, onPress, showArrow, showBorder, text } = props;
+  const { icon, iconSize, onPress, showArrow, showBorder, showSwitch, text  } = props;
 
   const borderTopWidth = showBorder ? 2 : 0;
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+
+
+
+
+  const handleSwitchChange = (value) => {
+    return (
+      <Text style={{color: "pink", marginTop: 5}} onPress={handlePress}>
+        Show less
+      </Text>
+    );
+  }
 
   return (
     <TouchableOpacity
@@ -26,6 +41,20 @@ const TouchLineItem = (props) => {
       {showArrow && (
         <View style={styles.arrow}>
           <SvgArrowRight size={iconSize} />
+        </View>
+         
+        
+      )}
+
+      {showSwitch && ( 
+        <View style={styles.containerSwitch}>
+            <Switch
+              trackColor={{ false: '#767577', true: '#81b0ff' }}
+              thumbColor={isEnabled ? '#e50914' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
         </View>
       )}
     </TouchableOpacity>

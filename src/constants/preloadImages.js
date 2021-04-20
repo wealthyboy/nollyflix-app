@@ -1,6 +1,6 @@
 const netflix = require('../assets/images/netflix-logo.png');
 const netflixTransparent = require('../assets/images/netflix-logo-transparent.png');
-const netflixFull = require('../assets/images/netflix-logo-full.png');
+const netflixFull = require('../assets/images/nollyflix-logo-full.png');
 
 const bannerBander = require('../assets/images/content/main-banner.jpeg');
 const logoBander = require('../assets/images/content/bandersnatch-logo.jpg');
@@ -14,9 +14,10 @@ const darkKnight = require('../assets/images/content/circle_the-dark-knight.png'
 const blackPanther = require('../assets/images/content/circle_black-panther.png');
 
 // rectangle
-const peakyBlinders = require('../assets/images/content/peaky-blinders.jpg');
-const goodWillHunting = require('../assets/images/content/good-will-hunting.jpg');
-const johnMulaneyKG = require('../assets/images/content/john-mulaney-kid-gorgeous.jpg');
+const peakyBlinders = 'https://nollyflix.tv/images/videos/cJ5am4MaVnipJR60ui26uB6K6PDVI3ZcsUng4QM7.jpeg';
+const goodWillHunting =  'https://nollyflix.tv/images/videos/50HVuLRANHfqzjTpu7o2abZkY85MlMtnjMdZBMkW.jpeg';
+const johnMulaneyKG =   'https://nollyflix.tv/images/videos/1kn18qkLBwTXFYML4KsbB5FIWehHQHnB8mjdjFKF.jpeg';
+
 
 const mask = require('../assets/images/user-icons/mask.jpg');
 const penguin = require('../assets/images/user-icons/purple-penguin.jpg');

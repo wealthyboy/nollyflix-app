@@ -14,6 +14,10 @@ import TouchTextIcon from './TouchTextIcon';
 import SvgCheck from './icons/Svg.Check';
 import SvgInfo from './icons/Svg.Info';
 import SvgPlus from './icons/Svg.Plus';
+import SvgLike from './icons/Svg.Like';
+import SvgShare from './icons/Svg.Share';
+
+
 
 class PromotionBanner extends React.Component {
   constructor(props) {
@@ -38,29 +42,26 @@ class PromotionBanner extends React.Component {
     const icon = added ? <SvgCheck /> : <SvgPlus />;
 
     return (
-      <ImageBackground
-        imageStyle={{ resizeMode: 'contain' }}
-        source={images.bannerBander}
-        style={styles.imageBackground}
-      >
-        <View style={styles.containerContent}>
-          <Image source={images.logoBander} style={styles.image} />
-
+      
+        <View >
           <View style={gStyle.flexRowSpace}>
             <TouchTextIcon
               icon={icon}
               onPress={this.myListPress}
               text="My Listings"
             />
-            <PromotionPlay onPress={() => null} />
             <TouchTextIcon
-              icon={<SvgInfo />}
+              icon={<SvgLike />}
+              onPress={this.myListPress}
+              text="Like"
+            />
+            <TouchTextIcon
+              icon={<SvgShare />}
               onPress={() => null}
-              text="Info"
+              text="Share"
             />
           </View>
         </View>
-      </ImageBackground>
     );
   }
 }

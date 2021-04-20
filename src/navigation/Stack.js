@@ -7,14 +7,25 @@ import ModalAddProfile from '../screens/ModalAddProfile';
 import ModalManageProfiles from '../screens/ModalManageProfiles';
 import ModalVideo from '../screens/ModalVideo';
 import ModalWebView from '../screens/ModalWebView';
+import ModalVideoDetails from '../screens/ModalVideoDetails';
+
+
+
+
+
 
 // grab tabbed stacks
 import TabNavigator from './TabNavigator';
+import AuthNavigator from './AuthNavigator';
+
 
 const StackNavigator = createStackNavigator(
   {
     Main: {
       screen: TabNavigator
+    },
+    Auth: {
+      screen: AuthNavigator
     },
 
     // Modals
@@ -23,7 +34,8 @@ const StackNavigator = createStackNavigator(
     ModalAddProfile,
     ModalManageProfiles,
     ModalVideo,
-    ModalWebView
+    ModalWebView,
+    ModalVideoDetails
   },
   {
     headerMode: 'none',

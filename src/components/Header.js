@@ -8,7 +8,9 @@ import { colors, device, fonts, images } from '../constants';
 import SvgArrowLeft from './icons/Svg.ArrowLeft';
 
 const Header = (props) => {
-  const { bg, close, closeText, navigation, showBack, showLogo, title } = props;
+  const { bg, close, closeText, navigation, onPress, showBack, showLogo, title } = props;
+
+  const route = navigation.state.params
 
   return (
     <View style={[styles.container, { backgroundColor: bg }]}>
@@ -18,7 +20,7 @@ const Header = (props) => {
           onPress={() => navigation.goBack(null)}
           style={styles.back}
         >
-          <SvgArrowLeft />
+          <SvgArrowLeft size={37} />
         </TouchableOpacity>
       )}
 
@@ -42,7 +44,13 @@ const Header = (props) => {
       {close && (
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.goBack(null)}
+          onPress={() => {
+            if ( typeof route !== "undefined" && route.next == "payment" ) {
+                navigation.navigate('ModalVideoDetails',route.video)            
+              } else {
+                navigation.goBack(null)
+            }
+          }}
           style={styles.close}
         >
           <Text style={styles.closeText}>{closeText}</Text>

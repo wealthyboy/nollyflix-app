@@ -1,0 +1,240 @@
+Getting Started (7m)
+ 
+ 1- Welcome (0:51)
+ 
+ 2- What is Redux? (2:17)
+ 
+ 3- Pros and Cons of Redux (5:29)
+ 
+ 4- Is Redux for You? (2:29)
+ 
+ 5- Setting Up the Development Environment (1:48)
+ 
+ 6- Course Structure (2:24)
+ 
+ Follow Me Around
+Functional Programming in JavaScript (42m)
+ 
+ 1- Introduction (0:27)
+ 
+ 2- What is Functional Programming? (1:25)
+ 
+ 3- Functions as First-class Citizens (3:07)
+ 
+ 4- Higher-order Functions (1:33)
+ 
+ 5- Function Composition (3:38)
+ 
+ 6- Composing and Piping (2:22)
+ 
+ 7- Currying (5:44)
+ 
+ 8- Pure Functions (2:50)
+ 
+ 9- Immutability (4:14)
+ 
+ 10- Updating Objects (4:33)
+ 
+ 11- Updating Arrays (3:55)
+ 
+ 12- Enforcing Immutability (1:05)
+ 
+ 13- Immutable.js (3:39)
+ 
+ 14- Immer (2:53)
+ 
+ 15- Quiz
+ 
+ 16- Coding Challenges
+Redux Fundamentals (37m)
+ 
+ 1- Introduction (0:25)
+ 
+ 2- Redux Architecture (5:03)
+ 
+ 3- Your First Redux App (1:44)
+ 
+ 4- Designing the Store (1:27)
+ 
+ 5- Defining the Actions (3:26)
+ 
+ 6- Creating a Reducer (6:13)
+ 
+ 7- Creating the Store (1:26)
+ 
+ 8- Dispatching Actions (2:45)
+ 
+ 9- Subscribing to the Store (2:07)
+ 
+ 10- Action Types (3:53)
+ 
+ 11- Action Creators (2:58)
+ 
+ 12- Exercise (0:17)
+ 
+ 13- Solution (4:57)
+Building Redux from Scratch (12m)
+ 
+ 1- Introduction (0:18)
+ 
+ 2- Redux Store (1:10)
+ 
+ 3- Private Properties (4:18)
+ 
+ 4- Dispatching Actions (3:04)
+ 
+ 5- Subscribing to the Store (2:36)
+ 
+ A Quick Note
+Debugging Redux Applications (15m)
+ 
+ 1- Introduction (0:15)
+ 
+ 2- Installing Redux DevTools (2:55)
+ 
+ 3- The Basics (2:25)
+ 
+ 4- Inspector Monitor (3:52)
+ 
+ 5- Tracing (4:26)
+ 
+ 6- Exporting and Importing (1:35)
+Writing Clean Redux Code (34m)
+ 
+ 1- Introduction (0:15)
+ 
+ 2- Structuring Files and Folders (2:36)
+ 
+ 3- Ducks Pattern (5:46)
+ 
+ 4- Redux Toolkit (1:35)
+ 
+ 5- Creating the Store (2:45)
+ 
+ 6- Creating Actions (5:27)
+ 
+ 7- Creating Reducers (6:56)
+ 
+ 8- Creating Slices (5:06)
+ 
+ 9- Exercise (0:55)
+ 
+ 10- Solution (3:22)
+Designing the Store (30m)
+ 
+ 1- Introduction (0:19)
+ 
+ 2- Redux State vs Local State (3:14)
+ 
+ 3- Structuring a Redux Store (3:23)
+ 
+ 4- Combining Reducers (4:09)
+ 
+ 5- Normalization (1:46)
+ 
+ 6- Selectors (3:37)
+ 
+ 7- Memoizing Selectors with Reselect (4:47)
+ 
+ 8- Exercise (0:21)
+ 
+ 9- Solution (8:19)
+Middleware (20m)
+ 
+ 1- Introduction (0:20)
+ 
+ 2- What is Middleware (1:11)
+ 
+ 3- Creating Middleware (6:08)
+ 
+ 4- Parameterizing Middleware (1:44)
+ 
+ 5- Dispatching Functions (8:14)
+ 
+ 6- Exercise (0:48)
+ 
+ 7- Solution (2:03)
+ 
+ A Quick Note
+Consuming APIs (1h)
+ 
+ 1- Introduction (0:24)
+ 
+ 2- Setting Up the Backend (1:15)
+ 
+ 3- The Approach (3:35)
+ 
+ 4- API Middleware (8:58)
+ 
+ 5- Actions (5:50)
+ 
+ 6- Restructuring the Store (2:21)
+ 
+ 7- Getting Data from the Server (6:34)
+ 
+ 8- Loading Indicators (5:03)
+ 
+ 9- Caching (6:17)
+ 
+ 10- Saving Data to the Server (3:40)
+ 
+ 11- Exercise (0:18)
+ 
+ 12- Solution- Resolving Bugs (4:04)
+ 
+ 13- Solution- Assigning a Bug to a User (2:29)
+ 
+ 14- Reducing Coupling (4:55)
+ 
+ 15- Cohesion (1:48)
+Testing Redux Applications (73m)
+ 
+ 1- Introduction (0:39)
+ 
+ 2- What is Automated Testing? (3:10)
+ 
+ 3- Setting Up the Testing Environment (4:43)
+ 
+ 4- Your First Unit Test (5:30)
+ 
+ 5- Unit Testing Redux Applications (5:10)
+ 
+ 6- Solitary Tests (9:04)
+ 
+ 7- Social Tests (9:20)
+ 
+ 8- Mocking HTTP Calls (3:36)
+ 
+ 9- Writing Clean Tests (5:39)
+ 
+ 10- Test Coverage (1:43)
+ 
+ 11- Exercises (0:23)
+ 
+ 12- Solution- getUnresolvedBugs (5:59)
+ 
+ 13- Solution- resolveBug (5:45)
+ 
+ 14- Solution- loadingBugs (12:09)
+ 
+ A Quick Note
+Integration with React (31m)
+ 
+ 1- Creating a React App (1:34)
+ 
+ 2- Installing Redux (1:06)
+ 
+ 3- Providing the Store (5:29)
+ 
+ 4- Subscribing and Dispatching (5:10)
+ 
+ 5- Connecting Components Using react-redux (8:32)
+ 
+ 6- Hooks (5:58)
+ 
+ 7- Connect One or Many Components?
+ 
+ 8- Exercise (0:24)
+ 
+ 9- Solution (3:19)
+  2- What is Redux?
