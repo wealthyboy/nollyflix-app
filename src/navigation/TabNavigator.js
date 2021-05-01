@@ -4,14 +4,14 @@ import { colors } from '../constants';
 // grabs stacks
 import StackHome from './StackHome';
 import StackSearch from './StackSearch';
-//import StackDownloads from './StackDownloads';
+import StackDownloads from './StackDownloads';
 import StackMore from './StackMore';
 
 export default createBottomTabNavigator(
   {
     StackHome,
     StackSearch,
-   // StackDownloads,
+    StackDownloads,
     StackMore
   },
   {
@@ -20,8 +20,9 @@ export default createBottomTabNavigator(
       activeTintColor: colors.white,
       inactiveTintColor: colors.inactiveGrey,
       style: {
-        backgroundColor: colors.black,
-        borderTopWidth: 0
+        backgroundColor: colors.bgGrey,
+        borderTopWidth: 0,
+        height: 65
       }
     }
   }

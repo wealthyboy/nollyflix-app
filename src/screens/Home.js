@@ -159,15 +159,15 @@ const styles = StyleSheet.create({
   },
   rectangle: {
     backgroundColor: colors.infoGrey,
-    height: 131,
+    height: 161,
     marginRight: 8,
-    width: 91
+    width: 121
   },
   rectangleImage: {
-    height: 131,
+    height: 161,
     marginRight: 8,
-    resizeMode: 'contain',
-    width: 91
+    resizeMode: 'cover',
+    width: 121
   },
   round: {
     backgroundColor: colors.infoGrey,

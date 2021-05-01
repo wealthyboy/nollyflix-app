@@ -8,12 +8,21 @@ import { colors, device, fonts, images } from '../constants';
 import SvgArrowLeft from './icons/Svg.ArrowLeft';
 
 const Header = (props) => {
-  const { bg, close, closeText, navigation, onPress, showBack, showLogo, title } = props;
+  const {
+    bg,
+    close,
+    closeText,
+    navigation,
+    onPress,
+    showBack,
+    showLogo,
+    title
+  } = props;
 
-  const route = navigation.state.params
+  const route = navigation.state.params;
 
   return (
-    <View style={[styles.container, { backgroundColor: bg }]}>
+    <View style={[styles.container, { backgroundColor: 'transparent' }]}>
       {showBack && (
         <TouchableOpacity
           activeOpacity={0.7}
@@ -32,7 +41,6 @@ const Header = (props) => {
 
       {showLogo && (
         <React.Fragment>
-          <View style={{ flex: 1 }} />
           <View style={styles.containerLogoFull}>
             <Image source={images.netflixFull} style={styles.logoFull} />
           </View>
@@ -45,10 +53,10 @@ const Header = (props) => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            if ( typeof route !== "undefined" && route.next == "payment" ) {
-                navigation.navigate('ModalVideoDetails',route.video)            
-              } else {
-                navigation.goBack(null)
+            if (typeof route !== 'undefined' && route.next == 'payment') {
+              navigation.navigate('ModalVideoDetails', route.video);
+            } else {
+              navigation.goBack(null);
             }
           }}
           style={styles.close}
@@ -113,8 +121,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   logoFull: {
-    height: 26,
-    width: 95
+    height: 23,
+    width: 150
   },
   close: {
     alignItems: 'flex-end',

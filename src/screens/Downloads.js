@@ -20,12 +20,6 @@ const Downloads = () => (
     <Text style={styles.description}>
       Movies and TV shows that you download appear here.
     </Text>
-
-    <View style={styles.button}>
-      <Text style={styles.buttonText}>FIND SOMETHING TO DOWNLOAD</Text>
-    </View>
-
-    <Cast />
   </View>
 );
 

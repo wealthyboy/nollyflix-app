@@ -17,8 +17,6 @@ import SvgPlus from './icons/Svg.Plus';
 import SvgLike from './icons/Svg.Like';
 import SvgDislike from './icons/Svg.Dislike';
 
-
-
 class VideoDetailsIcon extends React.Component {
   constructor(props) {
     super(props);
@@ -42,26 +40,20 @@ class VideoDetailsIcon extends React.Component {
     const icon = added ? <SvgCheck size={45} /> : <SvgPlus size={45} />;
 
     return (
-      
-        <View >
-          <View style={gStyle.flexRowSpace}>
-            <TouchTextIcon
-              icon={icon}
-              onPress={this.myListPress}
-              text="My Listings"
-            />
-            <TouchTextIcon
-              icon={<SvgLike size={45} />}
-              onPress={this.myListPress}
-              text="Like"
-            />
-            <TouchTextIcon
-              icon={<SvgDislike size={45} />}
-              onPress={this.myListPress}
-              text="Like"
-            />
-          </View>
+      <View>
+        <View style={gStyle.flexRowSpace}>
+          <TouchTextIcon
+            icon={<SvgLike size={45} />}
+            onPress={this.myListPress}
+            text="Like"
+          />
+          <TouchTextIcon
+            icon={<SvgDislike size={45} />}
+            onPress={this.myListPress}
+            text="Like"
+          />
         </View>
+      </View>
     );
   }
 }

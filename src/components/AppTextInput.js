@@ -11,7 +11,7 @@ export default function AppTextInput({icon,...otherProps}) {
             <TextInput
                 style={styles.inputStyle}
                 {...otherProps}
-                placeholderTextColor={colors.medium}
+                placeholderTextColor={colors.infoGrey}
             ></TextInput>
         </View>
     )
@@ -19,10 +19,10 @@ export default function AppTextInput({icon,...otherProps}) {
 
 const styles = StyleSheet.create({
     container: {
-        height: 50,
+        height: 55,
         marginTop: 20,
-        marginLeft: 1,
-        marginRight: 1,
+        marginLeft: 3,
+        marginRight: 3,
     },
     icon: {
        marginRight: 10,
@@ -34,11 +34,14 @@ const styles = StyleSheet.create({
     inputStyle: {
         flex: 1,
         color: 'white',
-        paddingLeft: 1,
-        paddingRight: 1,
         borderWidth: 1,
-        borderRadius: 1,
+        borderRadius: 8,
         borderColor: '#dadae8',
+        backgroundColor: colors.downloadsIconBg,
+        paddingLeft: 15,
+        paddingRight: 15,
+        fontSize: 18
+
       },
 
 })

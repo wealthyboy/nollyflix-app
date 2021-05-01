@@ -1,39 +1,46 @@
-// import * as React from 'react';
-// import PropTypes from 'prop-types';
-// import { createStackNavigator } from 'react-navigation-stack';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { createStackNavigator } from 'react-navigation-stack';
 
-// import navigationOptions from './defaultOptions';
+import navigationOptions from './defaultOptions';
 
-// // screens
-// import DownloadsScreen from '../screens/Downloads';
+// screens
+import DownloadsScreen from '../screens/Downloads';
 
+// icons
+import SvgPlay from '../components/icons/Svg.Play';
 
-// // icons
-// import SvgDownloads from '../components/icons/Svg.Downloads';
+const Icon = ({ focused }) => (
+  <View>
+    <Text
+      style={{ backgroundColor: 'red', width: 20, height: 20, color: '#fff' }}
+    >
+      90
+    </Text>
+    <SvgPlay active={focused} />
+  </View>
+);
 
-// const Icon = ({ focused }) => <SvgDownloads active={focused} />;
+import { colors } from '../constants';
+import { Text, View } from 'react-native';
 
-// import { colors } from '../constants';
+Icon.propTypes = {
+  // required
+  focused: PropTypes.bool.isRequired
+};
 
-
-// Icon.propTypes = {
-//   // required
-//   focused: PropTypes.bool.isRequired
-// };
-
-// export default createStackNavigator(
-//   {
-//     DownloadsMain: {
-//       screen: DownloadsScreen,
-//       navigationOptions
-//     }
-//   },
-//   {
-//     headerMode: 'none',
-//     tabBarBadge: 5,                        // This is for bar Badge
-//     navigationOptions: {
-//       tabBarLabel: 'Downloads',
-//       tabBarIcon: Icon
-//     }
-//   }
-// );
+export default createStackNavigator(
+  {
+    DownloadsMain: {
+      screen: DownloadsScreen,
+      navigationOptions
+    }
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      tabBarLabel: 'My Videos',
+      tabBarIcon: Icon
+    }
+  }
+);

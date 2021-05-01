@@ -1,30 +1,78 @@
-import  React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Platform,
+  Switch,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 import { colors, fonts } from '../constants';
+
+import nApi from '../api/notifications';
+import useApi from '../hooks/useApi';
 
 // icons
 import SvgArrowRight from './icons/Svg.ArrowRight';
 
 const TouchLineItem = (props) => {
-  const { icon, iconSize, onPress, showArrow, showBorder, showSwitch, text  } = props;
+  const {
+    icon,
+    iconSize,
+    onPress,
+    showArrow,
+    showBorder,
+    showSwitch,
+    text
+  } = props;
+
+  const { user } = useAuth();
+
+  let notificationStatus =
+    typeof user !== null ? user.notificationStatus : false;
+
+  notificationStatus = notificationStatus ? true : false;
 
   const borderTopWidth = showBorder ? 2 : 0;
+  const notificationsApi = useApi(nApi.notifications);
+  const [isEnabled, setIsEnabled] = useState(notificationStatus);
+  const toggleSwitch = async (value) => {
+    setIsEnabled(value);
+    const token = await registerForPushNotifications();
+    const result = await notificationsApi.request(token.data, isEnabled);
+    console.log(result.data);
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C'
+      });
+    }
+  };
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
-
-
-
+  const registerForPushNotifications = async () => {
+    try {
+      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      if (!permission.granted) return;
+      const token = await Notifications.getExpoPushTokenAsync();
+      return token;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSwitchChange = (value) => {
     return (
-      <Text style={{color: "pink", marginTop: 5}} onPress={handlePress}>
+      <Text style={{ color: 'pink', marginTop: 5 }} onPress={handlePress}>
         Show less
       </Text>
     );
-  }
+  };
 
   return (
     <TouchableOpacity
@@ -42,19 +90,17 @@ const TouchLineItem = (props) => {
         <View style={styles.arrow}>
           <SvgArrowRight size={iconSize} />
         </View>
-         
-        
       )}
 
-      {showSwitch && ( 
+      {showSwitch && (
         <View style={styles.containerSwitch}>
-            <Switch
-              trackColor={{ false: '#767577', true: '#81b0ff' }}
-              thumbColor={isEnabled ? '#e50914' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
+          <Switch
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={isEnabled ? '#e50914' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={(val) => toggleSwitch(val)}
+            value={isEnabled}
+          />
         </View>
       )}
     </TouchableOpacity>

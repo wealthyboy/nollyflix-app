@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react'
-import { Image, StyleSheet, ScrollView, KeyboardAvoidingView, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
+import { Platform, StyleSheet, ScrollView, KeyboardAvoidingView, View } from 'react-native'
 
 import * as Yup from 'yup'
 
@@ -14,7 +14,6 @@ import { colors,fonts } from '../constants';
 
 import authApi from '../api/auth';
 import useAuth from '../auth/useAuth';
-import AuthContext from '../auth/context'
 
 import ActivityIndicator  from '../components/ActivityIndicator'
 
@@ -60,24 +59,21 @@ export default function Login({ navigation }) {
         <>
        <ActivityIndicator visible={loading} />
 
-        <Header showBack  />
 
         <View style={styles.container}>
-        
+        <Header showBack  showLogo />
+
         <ScrollView
-            keyboardShouldPersistTaps="handled"
-            >
-            <View>
-            <KeyboardAvoidingView enabled>
-            <TouchableOpacity
-               activeOpacity={0.7}
-               onPress={() => navigation.navigate('HomeMain')}
-            >
-                <Image
-                    style={styles.logo}
-                    source={require("../assets/icon.png")}
-                />
-            </TouchableOpacity>
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{
+            flex: 1,
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
+        >
+        <View >
+          <KeyboardAvoidingView 
+            enabled>
             <View style={styles.textContainer}>
                 <AppText style={styles.text}>Sign in to buy, Rent movies and more. </AppText>
             </View>
@@ -88,8 +84,7 @@ export default function Login({ navigation }) {
                 validationSchema={validationSchema}
             >    
                 <AppFormField
-                    autoFocus
-                    placeholder="Email"
+                    placeholder="Emails"
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyBoardType="email-address"
@@ -102,7 +97,8 @@ export default function Login({ navigation }) {
                     autoCorrect={false}
                     textContentType="password"
                     secureTextEntry
-                    name="password" 
+                    name="password"
+                    
                 /> 
                 <ErrorMessage error="Invalid email or password"  visible={loginFailed} />
                 <SubmitButtom title="Sign In" />
@@ -117,6 +113,7 @@ export default function Login({ navigation }) {
         </View>
       </ScrollView>
 
+       
 
         
         </View>
@@ -130,6 +127,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.black,
         flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+
     },
     logo: {
         width: 60,
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         alignItems: "center",
-        marginBottom: 1
+        marginBottom: 5,
+        marginTop: 10
     }
 
       

@@ -20,7 +20,7 @@ export default createStackNavigator(
   {
     headerMode: 'none',
     defaultNavigationOptions: {
-      ...TransitionPresets.SlideFromLeftIOS,
+      ...TransitionPresets.SlideFromRightIOS,
     },
   }
 );

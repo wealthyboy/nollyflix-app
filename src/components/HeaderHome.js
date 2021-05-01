@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: colors.black20,
     flexDirection: 'row',
-    paddingBottom: 4,
+    paddingBottom: 14,
     paddingHorizontal: 16,
     paddingTop: device.iPhoneX ? 54 : 30,
     position: 'absolute',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   containerMenu: {
     alignItems: 'center',
     flexDirection: 'row',
-    height: 35,
+    height: 50,
     flex: 1
   },
   text: {

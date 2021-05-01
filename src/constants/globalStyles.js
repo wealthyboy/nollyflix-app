@@ -97,7 +97,7 @@ export default {
   mH32: {
     marginHorizontal: 32
   },
-  
+
   p4: {
     padding: 4
   },

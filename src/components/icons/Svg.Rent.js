@@ -12,12 +12,13 @@ const SvgRent = ({ active, size }) => {
 
   return (
     <Svg height={size} width={size} viewBox="0 0 24 24">
-      <Path 
-        fill={active ? colors.white : colors.inactiveGrey}
-        d="M16 11V5a3 3 0 01-3-3H3a3 3 0 01-3 3v6a3 3 0 013 3h10a3 3 0 013-3zm-3-1a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h8a1 1 0 011 1v4z"></Path>
+      <Path
+        fill="black"
+        d="M16 11V5a3 3 0 01-3-3H3a3 3 0 01-3 3v6a3 3 0 013 3h10a3 3 0 013-3zm-3-1a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1h8a1 1 0 011 1v4z"
+      ></Path>
     </Svg>
   );
-}
+};
 
 SvgRent.defaultProps = {
   active: true,

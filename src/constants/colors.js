@@ -14,6 +14,8 @@ export default {
   textGrey: '#b3b3b3',
 
   main: '#E50914',
+  transparent: 'transparent',
+
 
   // home
   heading: '#e6e6e6',

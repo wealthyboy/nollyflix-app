@@ -1,7 +1,3 @@
-/**
- * This is for the info link
- */
-
 import * as React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { gStyle, images } from '../constants';
@@ -14,10 +10,6 @@ import TouchTextIcon from './TouchTextIcon';
 import SvgCheck from './icons/Svg.Check';
 import SvgInfo from './icons/Svg.Info';
 import SvgPlus from './icons/Svg.Plus';
-import SvgLike from './icons/Svg.Like';
-import SvgShare from './icons/Svg.Share';
-
-
 
 class PromotionBanner extends React.Component {
   constructor(props) {
@@ -42,26 +34,29 @@ class PromotionBanner extends React.Component {
     const icon = added ? <SvgCheck /> : <SvgPlus />;
 
     return (
-      
-        <View >
+      <ImageBackground
+        imageStyle={{ resizeMode: 'contain' }}
+        source={images.bannerBander}
+        style={styles.imageBackground}
+      >
+        <View style={styles.containerContent}>
+          <Image source={images.logoBander} style={styles.image} />
+
           <View style={gStyle.flexRowSpace}>
             <TouchTextIcon
               icon={icon}
               onPress={this.myListPress}
-              text="My Listings"
+              text="My List"
             />
+            <PromotionPlay onPress={() => null} />
             <TouchTextIcon
-              icon={<SvgLike />}
-              onPress={this.myListPress}
-              text="Like"
-            />
-            <TouchTextIcon
-              icon={<SvgShare />}
+              icon={<SvgInfo />}
               onPress={() => null}
-              text="Share"
+              text="Info"
             />
           </View>
         </View>
+      </ImageBackground>
     );
   }
 }

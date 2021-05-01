@@ -11,6 +11,7 @@ export default function AppErrorMessage({ error, visible }) {
 
 const styles = StyleSheet.create({
     er: {
-        color: 'red'
+        color: 'red',
+        fontSize: 13
     }
 })

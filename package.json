@@ -23,7 +23,10 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.14.1",
+    "@react-native-community/hooks": "^2.6.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-community/netinfo": "5.9.7",
+    "@react-native-community/slider": "3.0.3",
     "apisauce": "^2.0.1",
     "expo": "^40.0.1",
     "expo-app-loading": "^1.0.2",
@@ -39,6 +42,7 @@
     "expo-screen-orientation": "^2.1.0",
     "expo-secure-store": "~9.3.0",
     "expo-status-bar": "~1.0.3",
+    "expo-video-player": "^1.6.1",
     "expo-web-browser": "~8.6.0",
     "formik": "^2.2.6",
     "jwt-decode": "^3.1.2",
@@ -49,8 +53,10 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
+    "react-native-elements": "^3.4.0",
     "react-native-expo-image-cache": "^4.1.0",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-paper": "^4.8.1",
     "react-native-progress": "^4.1.2",
     "react-native-read-more-text": "^1.1.2",
     "react-native-reanimated": "~1.13.0",
@@ -64,7 +70,7 @@
     "react-navigation-stack": "^2.10.2",
     "react-navigation-tabs": "^2.10.1",
     "yup": "^0.32.9",
-    "@react-native-community/netinfo": "5.9.7"
+    "expo-linear-gradient": "~8.4.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
