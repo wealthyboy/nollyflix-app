@@ -36,7 +36,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label('Password')
 });
 
-export default function Register({ navigation }) {
+export default function Register({ navigation, route }) {
   const registerApi = useApi(usersApi.register);
   const loginApi = useApi(authApi.login);
   const { logIn } = useAuth();
@@ -47,7 +47,7 @@ export default function Register({ navigation }) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const keyboard = useKeyboard();
 
-  const route = navigation.state.params;
+  const router = route.params;
 
   const onFocus = () => {
     console.log('keyboard isKeyboardShow: ', keyboard.keyboardShown);
@@ -68,7 +68,7 @@ export default function Register({ navigation }) {
     logIn(res.data.data, res.data.meta.token);
 
     if (typeof route !== 'undefined' && route.next == 'payment') {
-      const video = route.video;
+      const video = router.video;
       navigation.navigate('ModalWebView', {
         url:
           checkoutUrl +
@@ -89,7 +89,7 @@ export default function Register({ navigation }) {
   return (
     <>
       <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
-      <Header showBack />
+      <Header navigation={navigation} showBack />
       <View style={styles.container}>
         <ScrollView
           keyboardShouldPersistTaps="handled"

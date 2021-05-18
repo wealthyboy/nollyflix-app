@@ -30,9 +30,8 @@ import SvgRent from '../components/icons/Svg.Rent';
 import SvgBuy from '../components/icons/Svg.Buy';
 import SvgArrowLeft from '../components/icons/Svg.ArrowLeft';
 
-function CastDetails({ navigation }) {
-  const cast = navigation.state.params;
-  console.log(cast);
+function CastDetails({ navigation, route }) {
+  const cast = route.params;
 
   const _renderTruncatedFooter = (handlePress) => {
     return (

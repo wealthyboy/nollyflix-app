@@ -3,7 +3,6 @@
  */
 
 import * as React from 'react';
-import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import {
   Animated,
@@ -13,6 +12,7 @@ import {
   View
 } from 'react-native';
 import { colors, device, fonts, images } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 // components
 import TouchText from './TouchText';
@@ -50,19 +50,20 @@ class HeaderHome extends React.Component {
   render() {
     const { all, navigation } = this.props;
     const { top } = this.state;
-
     return (
       <Animated.View style={[styles.container, { top }]}>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => navigation.navigate('HomeMain')}
         >
-          <Image  source={require("../assets/icon.png")}  style={styles.logo} />
+          <Image
+            source={require('../assets/nollyflix2.png')}
+            style={styles.logo}
+          />
         </TouchableOpacity>
         <View style={styles.containerMenu}>
           {all && (
             <React.Fragment>
-              
               <TouchText
                 onPress={() => navigation.navigate('ActorsAndActress')}
                 text="Actors\Actress"
@@ -87,7 +88,6 @@ HeaderHome.defaultProps = {
 
 HeaderHome.propTypes = {
   // required
-  navigation: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
 
   // optional
@@ -107,9 +107,9 @@ const styles = StyleSheet.create({
     zIndex: 10
   },
   logo: {
-    height: 35,
+    height: 55,
     marginRight: 48,
-    width: 20
+    width: 50
   },
   containerMenu: {
     alignItems: 'center',
@@ -120,8 +120,14 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontFamily: fonts.medium,
-    marginRight: 24
+    marginRight: 24,
+    fontSize: 17
   }
 });
 
-export default withNavigation(HeaderHome);
+// Wrap and export
+export default function (props) {
+  const navigation = useNavigation();
+
+  return <HeaderHome {...props} navigation={navigation} />;
+}

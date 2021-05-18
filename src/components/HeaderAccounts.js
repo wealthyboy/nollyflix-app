@@ -1,28 +1,23 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { colors, device, fonts, images } from '../constants';
-import useAuth from "../auth/useAuth";
-
+import useAuth from '../auth/useAuth';
 
 // icons
 import SvgEdit from './icons/Svg.Edit';
 
-
-
-function HeaderAccounts({ navigation }) {
-  const { user, logOut } = useAuth()
+function HeaderAccounts({ navigation, user }) {
   return (
-
     <View style={styles.container}>
       <View style={styles.containerAccounts}>
         <View style={styles.containerUser}>
           <Image source={images.robot} style={styles.avatar} />
-          <Text style={[styles.username, styles.usernameActive]}>{user.name}</Text>
+          <Text style={[styles.username, styles.usernameActive]}>
+            {user.name}
+          </Text>
         </View>
-        
-        </View>
+      </View>
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={() => navigation.navigate('ModalManageProfiles')}
@@ -33,7 +28,6 @@ function HeaderAccounts({ navigation }) {
       </TouchableOpacity>
     </View>
   );
-
 }
 
 HeaderAccounts.propTypes = {
@@ -97,4 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(HeaderAccounts);
+export default HeaderAccounts;

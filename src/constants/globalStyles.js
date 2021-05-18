@@ -46,7 +46,7 @@ export default {
   },
   heading: {
     color: colors.heading,
-    fontFamily: fonts.medium,
+    fontFamily: fonts.bold,
     fontSize: 22,
     marginBottom: 4,
     marginLeft: 4,

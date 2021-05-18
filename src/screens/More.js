@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 
 import Constants from 'expo-constants';
 import { colors, fonts, gStyle } from '../constants';
@@ -16,6 +15,7 @@ import SvgBell from '../components/icons/Svg.Bell';
 import SvgPlay from '../components/icons/Svg.Play';
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
+import Auth from '../components/Auth';
 
 const privacyUrl = 'https://nollyflix.tv/pages/privacy-policy?mobile=true';
 const faqUrl = 'https://nollyflix.tv/pages/faq?mobile=true';
@@ -38,99 +38,86 @@ function More({ navigation }) {
     );
   };
 
-  if (null == user || typeof user !== 'object') {
+  if (user === null) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.description}>
-          To access your profile, watch videos e.t.c{' '}
-        </Text>
-        <AppButton
-          onPress={() => navigation.navigate('LoginScreen')}
-          title="Login"
-        ></AppButton>
-        <Text style={styles.buttonText}>or</Text>
-        <View>
-          <AppText
-            onPress={() => navigation.navigate('RegisterScreen')}
-            style={styles.buttonText}
-          >
-            {' '}
-            Sign up
-          </AppText>
-        </View>
-      </View>
+      <Auth
+        navigation={navigation}
+        user={user}
+        text="Please sign in to access your profile, videos and more"
+      />
     );
   }
 
   return (
-    <View style={gStyle.container}>
-      <HeaderAccounts />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchLineItem
-          icon={<SvgBell />}
-          showBorder
-          showArrow={false}
-          showSwitch={true}
-          text="Notifications"
-          onPress={() => null}
-        />
-        <TouchLineItem
-          icon={<SvgPlay />}
-          onPress={() => navigation.navigate('MoreMyListScreen')}
-          showBorder
-          showSwitch={false}
-          text="My Videos"
-        />
+    <>
+      <View style={gStyle.container}>
+        <HeaderAccounts navigation={navigation} user={user} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <TouchLineItem
+            icon={<SvgBell />}
+            showBorder
+            showArrow={false}
+            showSwitch={true}
+            notificationStatus={false}
+            text="Notifications"
+            onPress={() => null}
+          />
+          <TouchLineItem
+            icon={<SvgPlay />}
+            onPress={() => navigation.navigate('MyVideos')}
+            showBorder
+            showSwitch={false}
+            text="My Videos"
+          />
 
-        {/* <TouchLineItem
+          {/* <TouchLineItem
                 onPress={() => navigation.navigate('MoreAppSettingsScreen')}
                 showArrow={false}
                 showBorder
                 text="App Settings"
               /> */}
-        <TouchLineItem
-          onPress={() => {
-            navigation.navigate('ModalWebView', { url: privacyUrl });
-          }}
-          showArrow={true}
-          text="Privacy"
-        />
-        <TouchLineItem
-          onPress={() => {
-            navigation.navigate('ModalWebView', { url: faqUrl });
-          }}
-          showArrow={true}
-          text="FAQ"
-        />
+          <TouchLineItem
+            onPress={() => {
+              navigation.navigate('ModalWebView', { url: privacyUrl });
+            }}
+            showArrow={true}
+            text="Privacy"
+          />
+          <TouchLineItem
+            onPress={() => {
+              navigation.navigate('ModalWebView', { url: faqUrl });
+            }}
+            showArrow={true}
+            text="FAQ"
+          />
 
-        <TouchLineItem
-          onPress={() => {
-            navigation.navigate('ModalWebView', { url: cookieUrl });
-          }}
-          showArrow={true}
-          text="Cookie Policy"
-        />
+          <TouchLineItem
+            onPress={() => {
+              navigation.navigate('ModalWebView', { url: cookieUrl });
+            }}
+            showArrow={true}
+            text="Cookie Policy"
+          />
 
-        <TouchLineItem
-          onPress={() => {
-            navigation.navigate('ModalWebView', { url: termsUrl });
-          }}
-          showArrow={true}
-          text="Terms of Use"
-        />
+          <TouchLineItem
+            onPress={() => {
+              navigation.navigate('ModalWebView', { url: termsUrl });
+            }}
+            showArrow={true}
+            text="Terms of Use"
+          />
 
-        <TouchLineItem
-          onPress={() => alertSignOut()}
-          showArrow={false}
-          text="Sign Out"
-        />
-        <Text style={styles.versionText}>
-          {`Version: ${Constants.manifest.version}`}
-        </Text>
-      </ScrollView>
-
-      <Cast />
-    </View>
+          <TouchLineItem
+            onPress={() => alertSignOut()}
+            showArrow={false}
+            text="Sign Out"
+          />
+          <Text style={styles.versionText}>
+            {`Version: ${Constants.manifest.version}`}
+          </Text>
+        </ScrollView>
+      </View>
+    </>
   );
 }
 
@@ -167,4 +154,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(More);
+export default More;

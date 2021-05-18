@@ -11,68 +11,74 @@ import PromotionPlay from './PromotionPlay';
 import TouchTextIcon from './TouchTextIcon';
 
 // icons
-import SvgCheck from './icons/Svg.Check';
-import SvgInfo from './icons/Svg.Info';
-import SvgPlus from './icons/Svg.Plus';
 import SvgLike from './icons/Svg.Like';
-import SvgDislike from './icons/Svg.Dislike';
+import SvgDisLike from './icons/Svg.Dislike';
+import SvgLiked from './icons/Svg.Liked';
+import SvgDisLiked from './icons/Svg.DisLiked';
 
 class VideoDetailsIcon extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      added: false
+      liked: false,
+      disliked: false
     };
 
-    this.myListPress = this.myListPress.bind(this);
+    this.Like = this.Like.bind(this);
+    this.DisLike = this.DisLike.bind(this);
   }
 
-  myListPress() {
+  Like() {
     this.setState((prevState) => ({
-      added: !prevState.added
+      liked: !prevState.liked
     }));
+
+    this.setState({
+      disliked: false
+    });
+
+    //this.DisLike();
+  }
+
+  DisLike() {
+    this.setState((prevState) => ({
+      disliked: !prevState.disliked
+    }));
+
+    this.setState({
+      liked: false
+    });
   }
 
   render() {
-    const { added } = this.state;
+    const { liked, disliked } = this.state;
 
-    const icon = added ? <SvgCheck size={45} /> : <SvgPlus size={45} />;
+    const iconLiked = liked ? <SvgLiked size={45} /> : <SvgLike size={45} />;
+
+    const iconDisliked = disliked ? (
+      <SvgDisLiked size={45} />
+    ) : (
+      <SvgDisLike size={45} />
+    );
 
     return (
-      <View>
-        <View style={gStyle.flexRowSpace}>
-          <TouchTextIcon
-            icon={<SvgLike size={45} />}
-            onPress={this.myListPress}
-            text="Like"
-          />
-          <TouchTextIcon
-            icon={<SvgDislike size={45} />}
-            onPress={this.myListPress}
-            text="Like"
-          />
-        </View>
+      <View style={styles.container}>
+        <TouchTextIcon icon={iconLiked} onPress={this.Like} text="Like" />
+        <TouchTextIcon
+          icon={iconDisliked}
+          onPress={this.DisLike}
+          text="DisLike"
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  imageBackground: {
-    height: 480
-  },
-  containerContent: {
-    bottom: 24,
-    position: 'absolute',
-    width: '100%',
-    zIndex: 1
-  },
-  image: {
-    alignSelf: 'center',
-    height: 69,
-    marginBottom: 24,
-    width: 291
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
   }
 });
 

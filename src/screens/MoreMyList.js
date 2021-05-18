@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
 import { Image } from 'react-native-expo-image-cache';
 
 import { colors, gStyle, fonts } from '../constants';
@@ -12,6 +18,10 @@ import SvgPlay from '../components/icons/Svg.Play';
 // components
 import Header from '../components/Header';
 import ActivityIndicator from '../components/ActivityIndicator';
+import SvgArrowRight from '../components/icons/Svg.ArrowRight';
+import Error from '../components/Error';
+import Auth from '../components/Auth';
+import MyVideos from '../components/MyVideos';
 
 function MoreMyList({ navigation }) {
   const { user } = useAuth();
@@ -26,39 +36,13 @@ function MoreMyList({ navigation }) {
 
   const videos = data.data;
 
-  const handlePress = (video) => {
-    if (video.is_rent_expired) {
-      navigation.navigate('VideoDetails', video.video);
-    } else {
-      navigation.navigate('ModalVideo', {
-        video: video.video,
-        videoToShow: 'link'
-      });
-    }
-    return;
-  };
-
-  if (null == user || typeof user !== 'object') {
+  if (!user) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.description}>
-          To access your profile, watch videos e.t.c
-        </Text>
-        <AppButton
-          onPress={() => navigation.navigate('LoginScreen')}
-          title="Login"
-        ></AppButton>
-        <Text style={styles.buttonText}>or</Text>
-        <View>
-          <AppText
-            onPress={() => navigation.navigate('RegisterScreen')}
-            style={styles.buttonText}
-          >
-            {' '}
-            Sign up
-          </AppText>
-        </View>
-      </View>
+      <Auth
+        navigation={navigation}
+        user={user}
+        text="Please sign in to access your videos"
+      />
     );
   }
 
@@ -66,45 +50,19 @@ function MoreMyList({ navigation }) {
     <>
       <ActivityIndicator visible={loading} />
       <View style={gStyle.container}>
-        <Header bg={colors.headerBarBg} showBack title="My Videos" />
-        {typeof videos !== 'undefined' && videos.length === 0 && (
-          <View>
-            <View style={styles.containerIcon}>
-              <SvgPlay fill={colors.bgGrey} size={80} />
-            </View>
-
-            <Text style={styles.description}>You have no movies</Text>
-          </View>
-        )}
-
-        {typeof videos !== 'undefined' && videos.length !== 0 && (
-          <View style={styles.imageContainer}>
-            {videos.map((video) => (
-              <TouchableWithoutFeedback
-                key={video.id}
-                onPress={() => {
-                  if (video.is_rent_expired) {
-                    navigation.navigate('VideoDetails', video.video);
-                  } else {
-                    navigation.navigate('ModalVideo', {
-                      video: video.video,
-                      videoToShow: 'link'
-                    });
-                  }
-                }}
-              >
-                <View style={styles.imgContainer}>
-                  <Image
-                    style={styles.rectangle}
-                    uri={video.video.tn_poster}
-                    preview={{ uri: video.video.tn_poster }}
-                    tint="light"
-                  />
-                </View>
-              </TouchableWithoutFeedback>
-            ))}
-          </View>
-        )}
+        <Header
+          bg={colors.headerBarBg}
+          navigation={navigation}
+          showBack
+          title="My Videos"
+        />
+        <MyVideos
+          error={error}
+          user={user}
+          onPress={getVideos}
+          videos={videos}
+          navigation={navigation}
+        />
       </View>
     </>
   );
@@ -132,10 +90,7 @@ const styles = StyleSheet.create({
     width: 300
   },
   imageContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center'
+    flexDirection: 'row'
   },
   imgContainer: {
     alignItems: 'center',
@@ -145,8 +100,9 @@ const styles = StyleSheet.create({
   rectangle: {
     backgroundColor: colors.infoGrey,
     height: 131,
-    marginRight: 5,
-    width: 91
+    width: 91,
+    marginRight: 15,
+    marginVertical: 5
   },
   rectangleImage: {
     height: 131,
@@ -161,7 +117,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontFamily: fonts.regular,
-    textAlign: 'center',
+    textAlign: 'left',
     lineHeight: 25
   }
 });

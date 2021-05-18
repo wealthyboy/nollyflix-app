@@ -1,28 +1,29 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
 import { colors, device, fonts, images } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 // icons
 import SvgArrowLeft from './icons/Svg.ArrowLeft';
 
 const Header = (props) => {
+  const navigation = useNavigation();
+
   const {
     bg,
     close,
     closeText,
-    navigation,
     onPress,
     showBack,
     showLogo,
-    title
+    title,
+    route
   } = props;
 
-  const route = navigation.state.params;
-
+  const router = route;
   return (
-    <View style={[styles.container, { backgroundColor: 'transparent' }]}>
+    <View style={[styles.container]}>
       {showBack && (
         <TouchableOpacity
           activeOpacity={0.7}
@@ -53,8 +54,11 @@ const Header = (props) => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            if (typeof route !== 'undefined' && route.next == 'payment') {
-              navigation.navigate('ModalVideoDetails', route.video);
+            if (
+              typeof router.params !== 'undefined' &&
+              router.params.next === 'VideoDetails'
+            ) {
+              navigation.navigate('VideoDetails', route.video);
             } else {
               navigation.goBack(null);
             }
@@ -97,7 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 4,
     paddingHorizontal: 16,
-    paddingTop: device.iPhoneX ? 54 : 30
+    paddingTop: device.iPhoneX ? 54 : 30,
+    zIndex: 0
   },
   back: {
     alignSelf: 'center',
@@ -137,4 +142,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(Header);
+export default Header;

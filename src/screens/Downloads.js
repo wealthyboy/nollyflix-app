@@ -1,27 +1,60 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors, fonts, gStyle } from '../constants';
+import useAuth from '../auth/useAuth';
+
+import useApi from '../hooks/useApi';
+import watchlistApi from '../api/watchlists';
 
 // components
-import Cast from '../components/Cast';
+import ActivityIndicator from '../components/ActivityIndicator';
+
 import Header from '../components/Header';
 
 // icons
-import SvgDownloads from '../components/icons/Svg.Buy';
+import Auth from '../components/Auth';
+import MyVideos from '../components/MyVideos';
 
-const Downloads = () => (
-  <View style={gStyle.container}>
-    <Header bg={colors.headerBarBg} title="My Downloads" />
+function Downloads({ navigation }) {
+  const { user } = useAuth();
 
-    <View style={styles.containerIcon}>
-      <SvgDownloads fill={colors.bgGrey} size={80} />
-    </View>
+  const { request: getVideos, data, error, loading } = useApi(
+    watchlistApi.watchlists
+  );
 
-    <Text style={styles.description}>
-      Movies and TV shows that you download appear here.
-    </Text>
-  </View>
-);
+  useEffect(() => {
+    getVideos();
+  }, []);
+
+  const videos = data.data;
+  if (!user) {
+    return (
+      <Auth
+        navigation={navigation}
+        user={user}
+        text="Please sign in to access your videos"
+      />
+    );
+  }
+
+  return (
+    <>
+      <ActivityIndicator visible={loading} />
+
+      <View style={gStyle.container}>
+        <Header bg={colors.headerBarBg} title="My Videos" />
+
+        <MyVideos
+          error={error}
+          user={user}
+          onPress={getVideos}
+          videos={videos}
+          navigation={navigation}
+        />
+      </View>
+    </>
+  );
+}
 
 const styles = StyleSheet.create({
   containerIcon: {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "408953132355",
+    "project_id": "nollyflix-620f0",
+    "storage_bucket": "nollyflix-620f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408953132355:android:5844dd276ab93d0040cbf6",
+        "android_client_info": {
+          "package_name": "com.nollyflix.tv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408953132355-vksjg0b6vqprt801g64q8ear2dss4p4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD18L6eVXTb5DERHRnhPzREH65DrmsL3_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408953132355-vksjg0b6vqprt801g64q8ear2dss4p4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

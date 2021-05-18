@@ -1,13 +1,11 @@
 /**
  * This is for the info link
  */
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 import {
-  Animated,
   FlatList,
   Image,
-  Platform,
   StyleSheet,
   ScrollView,
   Text,
@@ -18,35 +16,31 @@ import {
 } from 'react-native';
 
 import ReadMore from 'react-native-read-more-text';
-import Constants from 'expo-constants';
 
-import { gStyle } from '../constants';
-import { colors, fonts } from '../constants';
+import { colors, gStyle, fonts } from '../constants';
 import useAuth from '../auth/useAuth';
 
 // components
+import HeaderTransparent from '../components/HeaderTransparent';
+
 import PromotionPlay from '../components/PromotionPlay';
 import VideoDetailsIcon from '../components/VideoDetailsIcon';
-import TouchTextIcon from '../components/TouchTextIcon';
 
-import Header from '../components/Header';
 import SvgRent from '../components/icons/Svg.Rent';
 import SvgBuy from '../components/icons/Svg.Buy';
-import SvgArrowLeft from '../components/icons/Svg.ArrowLeft';
 import SvgPlay from '../components/icons/Svg.Play';
 
-import PromotionBanner from '../components/PromotionBanner';
 import VideoPlayer from './VideoPlayer';
-import { Video } from 'expo-av';
 
-function VideoDetails({ navigation }) {
-  const video = navigation.state.params;
-  const checkoutUrl = 'https://nollyflix.tv/checkout';
+function VideoDetails({ route, navigation }) {
+  const { user } = useAuth();
+  const video = route.params.video;
+
+  const checkoutUrl = 'https://nollyflix.tv/carts';
+  const videoUrl = 'https://nollyflix.tv/watch/' + video.slug + '?watch=free';
   const rentText = 'Rent  ₦' + video.converted_rent_price;
   const buyText = 'Buy  ₦' + video.converted_buy_price;
   const [playPreview, setPlayPreview] = useState(false);
-
-  const { user } = useAuth();
 
   const _renderTruncatedFooter = (handlePress) => {
     return (
@@ -65,12 +59,12 @@ function VideoDetails({ navigation }) {
   };
 
   const icon = <SvgPlay size={70} />;
-  const image = { uri: video.tn_poster };
 
   return (
     <View style={gStyle.container}>
-      {/* <Header showBack /> */}
+      <HeaderTransparent navigation={navigation} controlsOpacity={1} />
       {playPreview && <VideoPlayer video={video} />}
+
       {!playPreview && (
         <ImageBackground
           source={{ uri: video.tn_poster }}
@@ -114,10 +108,14 @@ function VideoDetails({ navigation }) {
                   navigation.navigate('ModalWebView', {
                     url:
                       checkoutUrl +
-                      '?type=Rent&videoid=' +
+                      '?type=Rent&video_id=' +
                       video.id +
-                      '&price=' +
+                      '&from=app&price=' +
                       video.converted_rent_price +
+                      '&token=' +
+                      user.token +
+                      '&email=' +
+                      user.email +
                       '&userid=' +
                       user.id,
                     next: 'VideoDetails'
@@ -147,13 +145,19 @@ function VideoDetails({ navigation }) {
                   navigation.navigate('ModalWebView', {
                     url:
                       checkoutUrl +
-                      '?type=Buy&videoid=' +
+                      '?type=Buy&video_id=' +
                       video.id +
-                      '&price=' +
+                      '&from=app&price=' +
                       video.converted_buy_price +
+                      '&token=' +
+                      user.token +
                       '&userid=' +
+                      user.id +
+                      '&email=' +
+                      user.email +
                       user.id,
-                    next: 'VideoDetails'
+                    next: 'VideoDetails',
+                    rotate: false
                   });
                 } else {
                   navigation.navigate('LoginScreen', {
@@ -176,18 +180,19 @@ function VideoDetails({ navigation }) {
               p={7}
               pV={2}
               onPress={() => {
-                navigation.navigate('ModalVideo', {
-                  video: video
+                navigation.navigate('ModalWebView', {
+                  url: videoUrl,
+                  rotate: true
                 });
               }}
             />
           )}
         </View>
-        <View style={gStyle.mV24}>
+        <View style={gStyle.mV16}>
           <Text
             style={[
-              gStyle.heading,
-              { textTransform: 'uppercase', fontSize: 26, marginBottom: 1 }
+              styles.heading,
+              { textTransform: 'uppercase', marginBottom: 1 }
             ]}
           >
             {video.title}
@@ -202,13 +207,15 @@ function VideoDetails({ navigation }) {
             <Text style={[styles.text, gStyle.mR16]}>{video.duration}</Text>
             <Text style={[styles.text, styles.hd]}>{video.resolution}</Text>
           </View>
-          <View style={gStyle.mV16}>
+          <View>
             <ReadMore
               numberOfLines={2}
               renderTruncatedFooter={_renderTruncatedFooter}
               renderRevealedFooter={_renderRevealedFooter}
             >
-              <Text style={styles.text}>{video.description}</Text>
+              <Text style={[styles.text, { fontSize: 15 }]}>
+                {video.description}
+              </Text>
             </ReadMore>
           </View>
           <View
@@ -216,7 +223,7 @@ function VideoDetails({ navigation }) {
               flexDirection: 'row',
               flex: 1,
               flexWrap: 'wrap',
-              marginVertical: 1
+              marginVertical: 7
             }}
           >
             <Text style={styles.text}>Starring: </Text>
@@ -241,14 +248,18 @@ function VideoDetails({ navigation }) {
               marginBottom: 20
             }}
           >
-            <Text style={styles.text}>Produced By: </Text>
+            <Text style={[styles.text, { color: colors.textGrey }]}>
+              Produced By:
+            </Text>
             {video.filmers.map((producer) => (
               <TouchableOpacity
                 key={producer.id}
                 activeOpacity={0.7}
                 onPress={() => navigation.navigate('CastDetails', producer)}
               >
-                <Text style={[styles.text, gStyle.mH5]}>
+                <Text
+                  style={[styles.text, gStyle.mH5, { color: colors.textGrey }]}
+                >
                   {producer.name} {producer.last_name}
                 </Text>
               </TouchableOpacity>
@@ -278,7 +289,9 @@ function VideoDetails({ navigation }) {
                     renderItem = (
                       <TouchableWithoutFeedback
                         onPress={() =>
-                          navigation.navigate('VideoDetails', item.video)
+                          navigation.navigate('VideoDetails', {
+                            video: item.video
+                          })
                         }
                       >
                         <Image
@@ -343,7 +356,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     resizeMode: 'cover',
     width: '100%',
-    height: 300
+    height: 300,
+    zIndex: 1
   },
   image: {
     alignSelf: 'center',
@@ -353,6 +367,14 @@ const styles = StyleSheet.create({
   },
   genre: {
     position: 'absolute'
+  },
+  heading: {
+    color: colors.heading,
+    fontFamily: fonts.bold,
+    fontSize: 22,
+    marginBottom: 4,
+    marginLeft: 4,
+    fontWeight: 'bold'
   },
   rectangle: {
     backgroundColor: colors.infoGrey,

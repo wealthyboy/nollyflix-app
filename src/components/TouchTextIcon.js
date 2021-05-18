@@ -7,7 +7,7 @@ const TouchTextIcon = ({ icon, iconSize, onPress, text, width }) => (
   <TouchableOpacity
     activeOpacity={0.7}
     onPress={onPress}
-    style={[styles.container, { width }]}
+    style={[styles.container]}
   >
     <View style={styles.icon}>
       {React.cloneElement(icon, { size: iconSize })}
@@ -17,7 +17,7 @@ const TouchTextIcon = ({ icon, iconSize, onPress, text, width }) => (
 );
 
 TouchTextIcon.defaultProps = {
-  iconSize: 20,
+  iconSize: 30,
   width: 280
 };
 
@@ -33,19 +33,13 @@ TouchTextIcon.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
-  },
+  container: { marginHorizontal: 25 },
   text: {
     color: colors.infoGrey,
     fontFamily: fonts.light,
     marginTop: 2
   },
-  icon: {
-    justifyContent: 'center'
-  }
+  icon: {}
 });
 
 export default TouchTextIcon;

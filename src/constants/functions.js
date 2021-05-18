@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
 import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
@@ -6,19 +6,13 @@ import * as Font from 'expo-font';
 
 import preloadFonts from './preloadFonts';
 import preloadImages from './preloadImages';
-import authStorage from "../auth/storage";
+import authStorage from '../auth/storage';
 
-import AuthContext from '../auth/context'
-
+import AuthContext from '../auth/context';
 
 // cache fonts
 // /////////////////////////////////////////////////////////////////////////////
 const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
-
-
-
-
-
 
 // preload async
 // /////////////////////////////////////////////////////////////////////////////
@@ -32,5 +26,5 @@ const loadAssetsAsync = async () => {
 
 export default {
   cacheFonts,
-  loadAssetsAsync,
+  loadAssetsAsync
 };

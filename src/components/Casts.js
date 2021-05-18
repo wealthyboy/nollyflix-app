@@ -8,7 +8,7 @@ import AppText from '../components/AppText';
 import { Image } from 'react-native-expo-image-cache';
 
 function Casts({ data, navigation, title, subTitle }) {
-  console.log(navigation);
+  if (typeof data === 'undefined') return null;
 
   return (
     <>

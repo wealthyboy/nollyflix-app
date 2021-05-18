@@ -1,68 +1,61 @@
-import React ,  { useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableWithoutFeedback ,ScrollView } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
-
-import { colors, gStyle, fonts} from '../constants';
-import useApi from "../hooks/useApi";
-import castsApi from "../api/casts";
+import { colors, gStyle, fonts } from '../constants';
+import useApi from '../hooks/useApi';
+import castsApi from '../api/casts';
 
 // components
-import HeaderHome from '../components/HeaderHome';
 import AA from '../components/Casts';
-
-import ActivityIndicator from "../components/ActivityIndicator";
-
-
-
-
+import ActivityIndicator from '../components/ActivityIndicator';
+import Error from '../components/Error';
+import HeaderHome from '../components/HeaderHome';
 
 function ActorsAndActress({ navigation }) {
-
   const { request: getCasts, data, error, loading } = useApi(castsApi.casts);
 
-
   useEffect(() => {
-    getCasts()
-  },[])
-
-  if ( data.length === 0) {
-    return <ActivityIndicator  visible={true}  />
-  }
+    getCasts();
+  }, []);
 
   return (
-      <>
-        <View style={gStyle.container}>
-          <HeaderHome show />
-          <View >
-            <ScrollView
-              bounces
-              scrollEventThrottle={16}
-            >
-              <AA title="Actors and Actresses" navigation={navigation} subTitle="We have a selection of your favorite movie actors/actresses." data={data.data}></AA>
-            </ScrollView>
-          </View>
-        </View>
-      </>
-  )
-}
+    <>
+      <ActivityIndicator bG={colors.black} visible={loading} />
 
+      <View style={gStyle.container}>
+        <HeaderHome show />
+        <Error error={error} onPress={getCasts} msg="Could not load Casts. " />
+
+        <View>
+          <ScrollView bounces scrollEventThrottle={16}>
+            <AA
+              title="Actors and Actresses"
+              navigation={navigation}
+              subTitle="We have a selection of your favorite movie actors/actresses."
+              data={data.data}
+            ></AA>
+          </ScrollView>
+        </View>
+      </View>
+    </>
+  );
+}
 
 const styles = StyleSheet.create({
   headingSection: {
     marginTop: 90,
-    alignItems: "center",
-    justifyContent: "center"
-    
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   imageContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: "space-evenly",
-    flexWrap: "wrap",
-    alignItems: "center"
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    alignItems: 'center'
   },
-  imgContainer:{
-    alignItems: "center", 
+  imgContainer: {
+    alignItems: 'center',
     marginTop: 20
   },
   round: {
@@ -72,10 +65,9 @@ const styles = StyleSheet.create({
     marginRight: 8,
     width: 150,
     marginTop: 10,
-    resizeMode: 'contain',
-
+    resizeMode: 'contain'
   },
-  subTile:{
+  subTile: {
     marginTop: 15
   },
   text: {
@@ -83,8 +75,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: fonts.regular,
     textAlign: 'center',
-    lineHeight: 25,
-  },
+    lineHeight: 25
+  }
 });
 
 export default ActorsAndActress;

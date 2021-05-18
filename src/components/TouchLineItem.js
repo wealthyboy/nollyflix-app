@@ -23,6 +23,7 @@ const TouchLineItem = (props) => {
   const {
     icon,
     iconSize,
+    notificationStatus,
     onPress,
     showArrow,
     showBorder,
@@ -32,11 +33,6 @@ const TouchLineItem = (props) => {
 
   const { user } = useAuth();
 
-  let notificationStatus =
-    typeof user !== null ? user.notificationStatus : false;
-
-  notificationStatus = notificationStatus ? true : false;
-
   const borderTopWidth = showBorder ? 2 : 0;
   const notificationsApi = useApi(nApi.notifications);
   const [isEnabled, setIsEnabled] = useState(notificationStatus);
@@ -44,7 +40,6 @@ const TouchLineItem = (props) => {
     setIsEnabled(value);
     const token = await registerForPushNotifications();
     const result = await notificationsApi.request(token.data, isEnabled);
-    console.log(result.data);
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -64,14 +59,6 @@ const TouchLineItem = (props) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSwitchChange = (value) => {
-    return (
-      <Text style={{ color: 'pink', marginTop: 5 }} onPress={handlePress}>
-        Show less
-      </Text>
-    );
   };
 
   return (
@@ -111,7 +98,8 @@ TouchLineItem.defaultProps = {
   icon: null,
   iconSize: 20,
   showArrow: true,
-  showBorder: false
+  showBorder: false,
+  notificationStatus: false
 };
 
 TouchLineItem.propTypes = {
