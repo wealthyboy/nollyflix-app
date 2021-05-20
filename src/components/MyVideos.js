@@ -7,6 +7,8 @@ import {
   View
 } from 'react-native';
 import { Image } from 'react-native-expo-image-cache';
+import * as ScreenOrientation from 'expo-screen-orientation';
+
 import { colors, gStyle, fonts } from '../constants';
 import SvgPlay from '../components/icons/Svg.Play';
 
@@ -16,6 +18,16 @@ import Error from '../components/Error';
 
 function MyVideos({ error, onPress, navigation, user, videos }) {
   const videoUrl = 'https://nollyflix.tv/watch';
+
+  const porTrait = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
+  };
+
+  useEffect(() => {
+    porTrait();
+  }, []);
 
   return (
     <>

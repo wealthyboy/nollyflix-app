@@ -48,9 +48,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <StatusBar barStyle="light-content" />
-
       <OfflineNotice />
-
       <NavigationContainer linking={linking} theme={navTheme}>
         <Stack />
       </NavigationContainer>

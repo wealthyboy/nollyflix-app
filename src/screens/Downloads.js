@@ -15,9 +15,8 @@ import Header from '../components/Header';
 import Auth from '../components/Auth';
 import MyVideos from '../components/MyVideos';
 
-function Downloads({ navigation }) {
+function Downloads({ route, navigation }) {
   const { user } = useAuth();
-
   const { request: getVideos, data, error, loading } = useApi(
     watchlistApi.watchlists
   );

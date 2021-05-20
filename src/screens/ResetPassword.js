@@ -114,6 +114,15 @@ export default function ForgotPassword({ route, navigation }) {
                   name="email"
                 />
 
+                <AppFormField
+                  placeholder="Emails"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyBoardType="email-address"
+                  textContentType="emailAddress"
+                  name="email"
+                />
+
                 <ErrorMessage
                   error="Invalid email or password"
                   visible={loginFailed}

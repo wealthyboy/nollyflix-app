@@ -8,11 +8,16 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 // components
 import Header from '../components/Header';
 import ActivityIndicator from '../components/ActivityIndicator';
-import HeaderHome from '../components/HeaderHome';
 import HeaderTransparent from '../components/HeaderTransparent';
+
+import meApi from '../api/me';
+import useAuth from '../auth/useAuth';
 
 export default function ModalWebView({ navigation, route }) {
   const [visible, setVisible] = useState(false);
+  const [backScreen, setBackScreen] = useState(false);
+  const [transparentHeader, setTransparentHeader] = useState(false);
+  const { logIn } = useAuth();
 
   let router = typeof route.params !== 'undefined' ? route.params : null;
 
@@ -31,10 +36,24 @@ export default function ModalWebView({ navigation, route }) {
     );
   };
 
+  const reLogin = async () => {
+    const res = await meApi.me();
+    if (!res.ok) {
+      console.log(res);
+      return;
+    }
+
+    console.log(res);
+    logIn(res.data.data, res.data.token);
+  };
+
   const handleOrientation = (state) => {
+    console.log(state);
     if (typeof state !== 'undefined') {
       if (state.url.split('/')[3] === 'watch') {
         landScape();
+        setTransparentHeader(true);
+        reLogin();
       }
     }
   };
@@ -50,7 +69,18 @@ export default function ModalWebView({ navigation, route }) {
 
   return (
     <View style={gStyle.container}>
-      <HeaderTransparent navigation={navigation} controlsOpacity={1} />
+      {transparentHeader && (
+        <HeaderTransparent navigation={navigation} controlsOpacity={1} />
+      )}
+      {!transparentHeader && (
+        <Header
+          navigation={navigation}
+          close
+          closeText="Close"
+          showBack
+          showLogo
+        />
+      )}
 
       <WebView
         bounces={false}

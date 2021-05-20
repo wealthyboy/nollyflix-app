@@ -34,7 +34,9 @@ const Slider = ({ navigation, dataArr }) => {
   const renderItem = (video, parallaxProps) => {
     return (
       <TouchableWithoutFeedback
-        onPress={() => navigation.navigate('VideoDetails', video.item.video)}
+        onPress={() =>
+          navigation.navigate('VideoDetails', { video: video.item.video })
+        }
       >
         <View style={styles.item}>
           <ParallaxImage

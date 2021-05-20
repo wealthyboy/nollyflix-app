@@ -68,6 +68,7 @@ import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 import ForgotPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
+import MyVideos from '../screens/MoreMyList';
 
 const HomeIcon = ({ focused }) => <SvgHome active={focused} />;
 const SearchIcon = ({ focused }) => <SvgSearch active={focused} />;
@@ -98,6 +99,8 @@ function Main() {
       }}
     >
       <Stack.Screen name="Main" component={TabNavigator} />
+      <Stack.Screen name="MyVideos" component={MyVideos} />
+
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

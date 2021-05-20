@@ -18,6 +18,7 @@ import Header from '../components/Header';
 import { colors, fonts } from '../constants';
 
 import forgotApi from '../api/forgotPassword';
+import resetApi from '../api/reset';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 
@@ -25,33 +26,51 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email')
 });
 
+const codeValidationSchema = Yup.object().shape({
+  code: Yup.number().required().label('Code'),
+  password: Yup.string().required().min(4).label('Password')
+});
+
 export default function ForgotPassword({ route, navigation }) {
-  const [forgotFailed, setforgotFailed] = useState(false);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showResetForm, setShowResetForm] = useState(false);
   const [title, setTitle] = useState('Email your to reset your password.');
 
   const router = route.params;
 
-  const handleSubmit = async ({ email }) => {
+  const forgotP = async ({ email }) => {
     setLoading(true);
     const res = await forgotApi.ForgotPassword(email);
     if (!res.ok) {
-      setforgotFailed(true);
+      setError(true);
       setLoading(false);
       console.log(res.data.message);
       return;
     }
     setTitle('A code has been sent to youe email');
+    setLoading(false);
     setShowResetForm(true);
     setforgotFailed(false);
+  };
+
+  const resetP = async ({ code, password }) => {
+    setLoading(true);
+    const res = await resetApi.resetPassword(code, password);
+    if (!res.ok) {
+      setError(true);
+      setLoading(false);
+      return;
+    }
     setLoading(false);
+
+    navigation.navigate('LoginScreen');
+    return;
   };
 
   return (
     <>
       <ActivityIndicator visible={loading} />
-
       <View style={styles.container}>
         <Header navigation={navigation} showBack showLogo />
 
@@ -71,32 +90,27 @@ export default function ForgotPassword({ route, navigation }) {
 
               {showResetForm && (
                 <AppForm
-                  initialValues={{ email: '', password: '' }}
-                  onSubmit={handleSubmit}
-                  validationSchema={validationSchema}
+                  initialValues={{ code: '', password: '' }}
+                  onSubmit={resetP}
+                  validationSchema={codeValidationSchema}
                 >
                   <AppFormField
                     placeholder="Code"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    keyBoardType="email-address"
-                    textContentType="emailAddress"
-                    name="email"
+                    name="code"
                   />
 
                   <AppFormField
-                    placeholder="New Password"
+                    placeholder="Password"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    keyBoardType="email-address"
-                    textContentType="emailAddress"
-                    name="email"
+                    textContentType="password"
+                    secureTextEntry
+                    name="password"
                   />
 
-                  <ErrorMessage
-                    error="Invalid email or password"
-                    visible={forgotFailed}
-                  />
+                  <ErrorMessage error="Password reset failed" visible={error} />
                   <SubmitButtom title="Send" />
                 </AppForm>
               )}
@@ -104,7 +118,7 @@ export default function ForgotPassword({ route, navigation }) {
               {!showResetForm && (
                 <AppForm
                   initialValues={{ email: '', password: '' }}
-                  onSubmit={handleSubmit}
+                  onSubmit={forgotP}
                   validationSchema={validationSchema}
                 >
                   <AppFormField
@@ -118,7 +132,7 @@ export default function ForgotPassword({ route, navigation }) {
 
                   <ErrorMessage
                     error="Invalid email or password"
-                    visible={forgotFailed}
+                    visible={error}
                   />
                   <SubmitButtom title="Send" />
                 </AppForm>

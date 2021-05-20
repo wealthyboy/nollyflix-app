@@ -24,6 +24,7 @@ const termsUrl = 'https://nollyflix.tv/pages/terms-conditions?mobile=true';
 
 function More({ navigation }) {
   const { user, logOut } = useAuth();
+  console.log(user);
   const handleLogout = () => {
     logOut();
     navigation.navigate('HomeMain');
@@ -58,7 +59,7 @@ function More({ navigation }) {
             showBorder
             showArrow={false}
             showSwitch={true}
-            notificationStatus={false}
+            notificationStatus={user.notificationStatus ? true : false}
             text="Notifications"
             onPress={() => null}
           />

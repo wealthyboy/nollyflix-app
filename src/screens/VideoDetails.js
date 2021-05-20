@@ -1,7 +1,7 @@
 /**
  * This is for the info link
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   FlatList,
@@ -16,6 +16,8 @@ import {
 } from 'react-native';
 
 import ReadMore from 'react-native-read-more-text';
+import * as ScreenOrientation from 'expo-screen-orientation';
+import { useDeviceOrientation } from '@react-native-community/hooks';
 
 import { colors, gStyle, fonts } from '../constants';
 import useAuth from '../auth/useAuth';
@@ -35,7 +37,6 @@ import VideoPlayer from './VideoPlayer';
 function VideoDetails({ route, navigation }) {
   const { user } = useAuth();
   const video = route.params.video;
-
   const checkoutUrl = 'https://nollyflix.tv/carts';
   const videoUrl = 'https://nollyflix.tv/watch/' + video.slug + '?watch=free';
   const rentText = 'Rent  ₦' + video.converted_rent_price;
@@ -49,6 +50,16 @@ function VideoDetails({ route, navigation }) {
       </Text>
     );
   };
+
+  const porTrait = async () => {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
+  };
+
+  useEffect(() => {
+    porTrait();
+  }, []);
 
   const _renderRevealedFooter = (handlePress) => {
     return (
@@ -114,8 +125,6 @@ function VideoDetails({ route, navigation }) {
                       video.converted_rent_price +
                       '&token=' +
                       user.token +
-                      '&email=' +
-                      user.email +
                       '&userid=' +
                       user.id,
                     next: 'VideoDetails'
@@ -152,9 +161,6 @@ function VideoDetails({ route, navigation }) {
                       '&token=' +
                       user.token +
                       '&userid=' +
-                      user.id +
-                      '&email=' +
-                      user.email +
                       user.id,
                     next: 'VideoDetails',
                     rotate: false

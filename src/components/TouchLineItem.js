@@ -15,6 +15,7 @@ import { colors, fonts } from '../constants';
 
 import nApi from '../api/notifications';
 import useApi from '../hooks/useApi';
+import useAuth from '../auth/useAuth';
 
 // icons
 import SvgArrowRight from './icons/Svg.ArrowRight';
@@ -31,7 +32,7 @@ const TouchLineItem = (props) => {
     text
   } = props;
 
-  const { user } = useAuth();
+  const { user, logIn } = useAuth();
 
   const borderTopWidth = showBorder ? 2 : 0;
   const notificationsApi = useApi(nApi.notifications);
@@ -40,6 +41,8 @@ const TouchLineItem = (props) => {
     setIsEnabled(value);
     const token = await registerForPushNotifications();
     const result = await notificationsApi.request(token.data, isEnabled);
+    //console.log(result.data);
+    logIn(result.data.data);
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',

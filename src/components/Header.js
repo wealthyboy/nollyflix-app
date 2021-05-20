@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 4,
+    paddingBottom: 5,
     paddingHorizontal: 16,
     paddingTop: device.iPhoneX ? 54 : 30,
     zIndex: 0
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   logoFull: {
-    height: 23,
+    height: 33,
     width: 150
   },
   close: {

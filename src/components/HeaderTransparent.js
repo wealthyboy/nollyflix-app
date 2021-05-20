@@ -23,7 +23,7 @@ const HeaderTransparent = (props) => {
     <Animated.View style={[styles.container, { opacity: controlsOpacity }]}>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.goBack(null)}
+        onPress={() => navigation.navigate('Videos')}
         style={styles.back}
       >
         <SvgArrowLeft size={37} />
